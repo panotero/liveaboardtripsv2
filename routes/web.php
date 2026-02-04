@@ -52,13 +52,13 @@ Route::middleware(['auth', 'check.status', 'prevent-back-history'])->group(funct
     Route::get('/page_themes', [PageController::class, 'page_Themes']);
     Route::get('/page_users', [PageController::class, 'page_Users']);
     Route::get('/page_forms', [PageController::class, 'page_Forms']);
+    Route::get('/page_vessel', [PageController::class, 'page_vessel']);
+    Route::get('/page_bookings', [PageController::class, 'page_bookings']);
+    Route::get('/page_destinations', [PageController::class, 'page_destinations']);
+    Route::get('/page_schedules', [PageController::class, 'page_schedules']);
+    Route::get('/page_operators', [PageController::class, 'page_operators']);
     Route::get('/page_featuredHome', [PageController::class, 'page_featuredHome']);
     Route::get('/page_settings', [PageController::class, 'page_settings']);
-    Route::get('/page_documents', [PageController::class, 'page_documents']);
-    Route::get('/page_approvals', [PageController::class, 'page_approvals']);
-    Route::get('/page_reports_documents', [PageController::class, 'page_reports_documents']);
-    Route::get('/page_reports_users', [PageController::class, 'page_reports_users']);
-    Route::get('/page_finance_tracker', [PageController::class, 'page_finance_tracker']);
     Route::get('/profile', [PageController::class, 'profile'])->name('profile');
     Route::get('/settings', [PageController::class, 'settings'])->name('settings');
 

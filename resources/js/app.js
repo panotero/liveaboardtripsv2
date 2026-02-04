@@ -17,6 +17,7 @@ window.Alpine = Alpine;
 
 Alpine.start();
 import "./apihandler";
+import "./customfunctions";
 import "./customAlert";
 import "./navmenu";
 // import "./notificationController";

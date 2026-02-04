@@ -20,6 +20,8 @@ class Setting_roleSeeder extends Seeder
                 ['id' => 2, 'role_name' => 'admin'],
                 ['id' => 3, 'role_name' => 'user'],
                 ['id' => 4, 'role_name' => 'developer'],
+                ['id' => 5, 'role_name' => 'operator'],
+                ['id' => 6, 'role_name' => 'agent'],
             ],
             ['role_name'], // unique key to check
             ['role_name']  // columns to update if exists

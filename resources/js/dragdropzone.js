@@ -11,7 +11,7 @@ function initPDFDropzone({ dropzoneId, fileInputId, fileInfoId, clearBtnId }) {
 
   function showFile(file) {
     fileInfo.textContent = `📄 ${file.name} (${(file.size / 1024).toFixed(
-      1
+      1,
     )} KB)`;
     clearBtn.classList.remove("hidden");
 

@@ -48,41 +48,32 @@ class PageController extends Controller
         return view('pages.settings.forms');
     }
 
-    public function page_featuredHome()
-    {
-        return view('pages.featuredHome');
-    }
-
     public function page_settings()
     {
         return view('pages.settings.settings');
     }
-    public function page_documents()
+
+    public function page_vessel()
     {
-        return view('pages.documents');
+        return view('pages.vessel');
+    }
+    public function page_schedules()
+    {
+        return view('pages.schedules');
+    }
+    public function page_bookings()
+    {
+        return view('pages.bookings');
+    }
+    public function page_destinations()
+    {
+        return view('pages.destinations');
+    }
+    public function page_operators()
+    {
+        return view('pages.operators');
     }
 
-    public function page_approvals()
-    {
-
-        return view('pages.approvals');
-    }
-
-    public function page_reports_documents()
-    {
-
-        return view('pages.reports.documents');
-    }
-
-    public function page_reports_users()
-    {
-        return view('pages.reports.users');
-    }
-    public function page_finance_tracker()
-    {
-
-        return view('pages.finance');
-    }
 
     public function profile()
     {

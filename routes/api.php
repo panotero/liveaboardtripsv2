@@ -21,6 +21,7 @@ use App\Http\Controllers\ApprovalsController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\FinanceBudgetController;
 use App\Http\Controllers\FinanceActivityController;
+use App\Http\Controllers\VesselController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,17 +48,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user_info', function () {
 
         $user = auth()->user();
-        if ($user) {
-            $user->load('office', 'userConfig');
-        }
-
         return [
             'isLoggedIn' => auth()->check(),
             'user' => $user,
         ];
     });
 
+    //users
+    Route::prefix('vessels')->group(function () {
+        Route::get('/', [VesselController::class, 'index']);
+        Route::post('/', [VesselController::class, 'store']);
+    });
+
     Route::get('/load_menu', [MenusController::class, 'index']);
+
+
+
     Route::prefix('notifications')->group(function () {
         Route::get('/', [NotificationController::class, 'getNotifications']);
     });
@@ -72,12 +78,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/notifications/stream', [NotificationController::class, 'stream']);
     Route::get('/OfficeDocs', [DocumentController::class, 'OfficeDocs']);
 
-
-
-
-
-
-
+    //users
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index']);
         Route::get('/{id}', [UserController::class, 'show']);

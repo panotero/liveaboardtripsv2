@@ -1,0 +1,48 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('booking_userinfo', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('booking_id');
+            $table->string('ref_code', 50); // FK to booking
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('address_1')->nullable();
+            $table->string('address_2')->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->json('guest_list')->nullable();
+            $table->timestamps();
+
+
+            $table->foreign('booking_id')
+                ->references('id')
+                ->on('booking_table')
+                ->onDelete('cascade');
+
+
+            $table->engine = 'InnoDB';
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('booking_userinfo');
+    }
+};
