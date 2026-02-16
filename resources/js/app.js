@@ -20,6 +20,7 @@ import "./apihandler";
 import "./customfunctions";
 import "./customAlert";
 import "./navmenu";
+import "./datatableHandler";
 // import "./notificationController";
 import "./mailer";
 // import "./toast";

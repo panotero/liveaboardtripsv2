@@ -23,6 +23,6 @@ class Cabin extends Model
 
     public function details()
     {
-        return $this->hasOne(CabindDetails::class, 'cabin_details_id');
+        return $this->hasOne(CabindDetails::class, 'id', 'cabin_details_id');
     }
 }

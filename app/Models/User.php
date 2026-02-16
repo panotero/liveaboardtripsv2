@@ -23,9 +23,6 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
-        'role',
-        'office_id',
-        'authorize_signatory',
 
     ];
 
@@ -53,22 +50,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo(SettingRole::class, 'role_id');
     }
-    public function office()
-    {
-        return $this->belongsTo(Office::class, 'office_id', 'office_id');
-    }
-
-
-    public function userConfig()
-    {
-
-        return $this->belongsTo(UserConfig::class, 'role_id', 'id');
-    }
-    public function documents()
-    {
-
-        return $this->hasMany(Document::class, 'recipient_id', 'id');
-    }
-
-    public function user_designation() {}
 }

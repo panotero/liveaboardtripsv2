@@ -1,46 +1,56 @@
-<div class="p-4 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen">
+<div class="p-4 md:p-8 bg-gray-50 dark:bg-gray-900 min-h-screen ">
 
-    <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-        <div>
-            <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">Vessels</h1>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Manage your liveaboard fleet</p>
+    <div class="h-full container mx-auto py-5 ">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <div>
+                <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">Vessels</h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Manage your liveaboard fleet</p>
+            </div>
+
+            <button id="openVesselModal"
+                class="px-5 py-2.5 bg-black text-white rounded-full text-sm font-medium hover:opacity-90 transition dark:bg-white dark:text-black">
+                + Add New Vessel
+            </button>
         </div>
 
-        <button id="openVesselModal"
-            class="px-5 py-2.5 bg-black text-white rounded-full text-sm font-medium hover:opacity-90 transition dark:bg-white dark:text-black">
-            + Add New Vessel
-        </button>
-    </div>
+        <!-- Vessel List -->
+        <div class="mb-4">
+            <input type="text" id="vesselSearchInput" placeholder="Search vessels..."
+                class="w-full md:w-80 px-4 py-2 rounded-xl
+               border border-gray-300 dark:border-gray-600
+               bg-white dark:bg-gray-800
+               text-sm text-gray-800 dark:text-white
+               focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div class="space-y-4" id="vesselListContainer">
 
-    <!-- Vessel List -->
-    <div class="space-y-4">
+            <!-- Vessel Row Card -->
+            <div
+                class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:shadow-sm transition">
 
-        <!-- Vessel Row Card -->
-        <div
-            class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:shadow-sm transition">
+                <div class="flex items-center gap-4">
+                    <img src="/images/sample-boat.jpg" class="w-20 h-20 object-cover rounded-xl" />
 
-            <div class="flex items-center gap-4">
-                <img src="/images/sample-boat.jpg" class="w-20 h-20 object-cover rounded-xl" />
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-white">Ocean Explorer</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Capacity: 20 divers</p>
+                    </div>
+                </div>
 
-                <div>
-                    <h3 class="font-semibold text-gray-800 dark:text-white">Ocean Explorer</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Capacity: 20 divers</p>
+                <div class="flex items-center gap-3">
+                    <button id="editVesselBtn"
+                        class="px-4 py-2 text-sm rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        Edit
+                    </button>
+                    <button id="deleteVesselBtn"
+                        class="px-4 py-2 text-sm rounded-full bg-red-500 text-white hover:bg-red-600">
+                        Delete
+                    </button>
                 </div>
             </div>
 
-            <div class="flex items-center gap-3">
-                <button id="editVesselBtn"
-                    class="px-4 py-2 text-sm rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-                    Edit
-                </button>
-                <button id="deleteVesselBtn"
-                    class="px-4 py-2 text-sm rounded-full bg-red-500 text-white hover:bg-red-600">
-                    Delete
-                </button>
-            </div>
         </div>
-
     </div>
 </div>
 
@@ -127,7 +137,7 @@
         <div class="mb-6">
             <div class="flex justify-between items-center mb-3">
                 <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase">Cabins</h3>
-                <button type="button" id="addCabinBtn"
+                <button type="button" id="addNewCabinBtn"
                     class="px-4 py-2 rounded-full bg-gray-800 text-white text-sm hover:opacity-90">
                     + Add Cabin
                 </button>
@@ -152,12 +162,560 @@
     </div>
 </div>
 
+<!-- Vessel Information Modal -->
+<div id="vesselInfoModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+
+    <div
+        class="bg-white dark:bg-gray-900 w-full max-w-5xl max-h-[90vh]
+                rounded-2xl shadow-lg overflow-y-auto p-6 space-y-8">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white">
+                Vessel Information
+            </h2>
+            <button class="modal-close text-gray-500 hover:text-gray-800">
+                ✕
+            </button>
+        </div>
+
+        <!-- Vessel Info -->
+        <section id="vesselInfoSection" class="space-y-2"></section>
+
+        <!-- Specification -->
+        <section id="vesselSpecSection" class="space-y-2"></section>
+
+        <!-- Photos -->
+        <section>
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="font-semibold text-gray-800 dark:text-white">
+                    Photos
+                </h3>
+
+                <button id="addVesselPhotoBtn"
+                    class="px-3 py-1.5 text-xs rounded-full
+                   bg-blue-600 text-white hover:bg-blue-700 transition">
+                    + Add Photo
+                </button>
+            </div>
+
+            <div id="vesselPhotosSection" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+        </section>
+
+        <!-- Cabins -->
+        <section>
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="font-semibold text-gray-800 dark:text-white">
+                    Cabins
+                </h3>
+
+                <button id="addCabinBtn"
+                    class="px-3 py-1.5 text-xs rounded-full
+                   bg-blue-600 text-white hover:bg-blue-700 transition">
+                    + Add Cabin
+                </button>
+            </div>
+
+            <div id="vesselCabinsSection" class="space-y-3"></div>
+        </section>
+
+    </div>
+</div>
+<!-- Add Vessel Photo Modal -->
+<div id="addVesselPhotoModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+
+    <div class="bg-white dark:bg-gray-900 w-full max-w-lg rounded-2xl p-6 space-y-5">
+
+        <div class="flex justify-between items-center">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+                Add Vessel Photo
+            </h3>
+        </div>
+
+        <form id="addVesselPhotoForm" class="space-y-4">
+            <input type="file" id="vesselPhotoInput" name="photos[]" accept="image/*" multiple
+                class="block w-full text-sm" />
+
+            <div class="flex justify-end gap-2">
+                <button type="button" class="modal-close px-4 py-2 rounded-full border">
+                    Cancel
+                </button>
+                <button type="submit" class="px-4 py-2 rounded-full bg-blue-600 text-white">
+                    Add Photo
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+<!-- Add Cabin Modal -->
+<div id="addCabinModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+
+    <div class="bg-white dark:bg-gray-900 w-full max-w-xl rounded-2xl p-6 space-y-6">
+
+        <div class="flex justify-between items-center">
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+                Add Cabin
+            </h3>
+        </div>
+
+        <form id="addCabinForm" class="space-y-4">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" name="cabin_name" placeholder="Cabin Name" class="input" />
+
+                <input type="number" name="cabin_price" placeholder="Cabin Price" class="input" />
+
+                <input type="number" name="surcharge_percentage" placeholder="Surcharge %" class="input" />
+
+                <input type="number" name="max_guests" placeholder="Max Guests" class="input" />
+            </div>
+
+            <div>
+                <label class="text-sm text-gray-600 dark:text-gray-400">
+                    Cabin Photos
+                </label>
+                <input type="file" id="cabinPhotoInput" name="cabin_photos[]" accept="image/*" multiple
+                    class="block w-full text-sm mt-1" />
+            </div>
+
+            <div class="flex justify-end gap-2">
+                <button type="button" class="modal-close px-4 py-2 rounded-full border">
+                    Cancel
+                </button>
+                <button type="submit" class="px-4 py-2 rounded-full bg-blue-600 text-white">
+                    Add Cabin
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
 
 
 
 <script>
     (function() {
-        console.log(authUser);
+        let cachedVesselList = [];
+        let activeVesselData = null;
+
+        initializeVessels();
+        initializeVesselSearch();
+
+        async function initializeVessels() {
+            console.log("initialized vesseels");
+            const data = await fetchWithRetry(`/api/vessels/${authUser.id}`, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                },
+            });
+
+            if (!data.success) return;
+
+            cachedVesselList = data.vesselList;
+            updateVesselList(cachedVesselList);
+        }
+
+        function updateVesselList(vesselList) {
+            const container = document.getElementById('vesselListContainer');
+            container.innerHTML = '';
+
+            if (!Array.isArray(vesselList) || vesselList.length === 0) {
+                container.innerHTML = `
+            <div class="text-sm text-gray-500 dark:text-gray-400 text-center py-6">
+                No vessels found.
+            </div>
+        `;
+                return;
+            }
+
+            vesselList.forEach(vessel => {
+                let photos = [];
+                try {
+                    photos = vessel.vessel_photos ? JSON.parse(vessel.vessel_photos) : [];
+                } catch (e) {}
+
+                const thumbnail =
+                    vessel.vessel_thumbnail ||
+                    photos[0] ||
+                    '/images/sample-boat.jpg';
+
+                const capacity =
+                    vessel.specification?.vessel_cabin_capacity ??
+                    vessel.specification?.vessel_max_guest_capacity ??
+                    'N/A';
+
+                const card = document.createElement('div');
+
+                card.className = `
+            vessel-row cursor-pointer
+            bg-white dark:bg-gray-800
+            border border-gray-200 dark:border-gray-700
+            rounded-2xl p-4
+            flex flex-col md:flex-row
+            md:items-center md:justify-between
+            gap-4
+            hover:shadow-md hover:border-blue-400
+            transition
+        `;
+
+                card.dataset.id = vessel.id;
+
+                card.innerHTML = `
+            <div class="flex items-center gap-4 pointer-events-none">
+                <img
+                    src="/${thumbnail}"
+                    class="w-20 h-20 object-cover rounded-xl border dark:border-gray-600"
+                />
+
+                <div class="space-y-1">
+                    <h3 class="font-semibold text-gray-800 dark:text-white">
+                        ${vessel.vessel_name}
+                    </h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Capacity: ${capacity} guests
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 justify-end">
+                <button
+                    data-id="${vessel.id}"
+                    class="edit-vessel-btn px-4 py-2 text-sm rounded-full
+                           border border-gray-300 dark:border-gray-600
+                           hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                    Edit
+                </button>
+
+                <button
+                    data-id="${vessel.id}"
+                    class="delete-vessel-btn px-4 py-2 text-sm rounded-full
+                           bg-red-500 text-white hover:bg-red-600 transition">
+                    Delete
+                </button>
+            </div>
+        `;
+
+                container.appendChild(card);
+            });
+        }
+        document.addEventListener('click', async function(e) {
+            const vesselRow = e.target.closest('.vessel-row');
+            if (!vesselRow) return;
+
+            const vesselId = vesselRow.dataset.id;
+            const vesselData = getVesselFromCacheById(vesselId);
+
+            if (!vesselData) {
+                console.warn('Vessel not found in cache:', vesselId);
+                return;
+            }
+
+            // EDIT BUTTON CLICK
+            if (e.target.closest('.edit-vessel-btn')) {
+                // handleEditVessel(vesselData);
+                return;
+            }
+
+            // DELETE BUTTON CLICK
+            if (e.target.closest('.delete-vessel-btn')) {
+
+                const confirmed = await customConfirm("Deactivate this user?");
+                if (!confirmed) return;
+
+                const payload = {
+                    vesselId: vesselId
+                };
+
+                const data = fetchWithRetry("/api/vessels", {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                            .content,
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                initializeVessels();
+                if (!data.success) return;
+
+                console.log("deleted vessel with id: " + vesselId);
+                return;
+            }
+
+            // ROW CLICK (DEFAULT)
+            openVesselInfoModal(vesselData);
+        });
+
+        function populateVesselInfo(vessel) {
+            const el = document.getElementById('vesselInfoSection');
+
+            el.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div><strong>Name:</strong> ${vessel.vessel_name}</div>
+            <div><strong>Description:</strong> ${vessel.description ?? '-'}</div>
+            <div><strong>Partner ID:</strong> ${vessel.partner_id ?? '-'}</div>
+            <div><strong>Created:</strong> ${vessel.created_at}</div>
+        </div>
+    `;
+        }
+
+        function populateVesselSpecification(spec) {
+            const el = document.getElementById('vesselSpecSection');
+
+            if (!spec) {
+                el.innerHTML = `<p class="text-sm text-gray-500">No specification data.</p>`;
+                return;
+            }
+
+            el.innerHTML = `
+        <h3 class="font-semibold text-gray-800 dark:text-white">
+            Specification
+        </h3>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+            <div>Year Model: ${spec.vessel_year_model}</div>
+            <div>Renovation: ${spec.vessel_year_renovation}</div>
+            <div>Beam: ${spec.vessel_beam}</div>
+            <div>Engines: ${spec.vessel_engines}</div>
+            <div>Cruising Speed: ${spec.vessel_cruisingspeed}</div>
+            <div>Top Speed: ${spec.vessel_topspeed}</div>
+            <div>Cabin Capacity: ${spec.vessel_cabin_capacity}</div>
+            <div>Bathrooms: ${spec.vessel_bathroom_number}</div>
+            <div>Water Capacity: ${spec.vessel_water_capacity}</div>
+            <div>Fuel Capacity: ${spec.vessel_fuel_capacity}</div>
+        </div>
+    `;
+        }
+
+        function populateVesselPhotos(vessel) {
+            const container = document.getElementById('vesselPhotosSection');
+            container.innerHTML = '';
+
+            let photos = [];
+            try {
+                photos = vessel.vessel_photos ? JSON.parse(vessel.vessel_photos) : [];
+            } catch (e) {}
+
+            photos.forEach(path => {
+                const card = document.createElement('div');
+                card.className = `
+            relative group rounded-xl overflow-hidden
+            border dark:border-gray-700
+        `;
+                card.dataset.path = path;
+
+                card.innerHTML = `
+            <img src="/${path}"
+                 class="w-full h-32 object-cover" />
+
+            <button
+                class="absolute top-2 right-2 w-8 h-8 rounded-full
+                       bg-red-500 text-white text-xs
+                       flex items-center justify-center
+                       opacity-0 group-hover:opacity-100 transition
+                       delete-photo-btn"
+                data-path="${path}">
+                ✕
+            </button>
+        `;
+
+                container.appendChild(card);
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('.delete-photo-btn');
+            if (!btn) return;
+
+            const path = btn.dataset.path;
+            console.log('Delete photo:', path);
+        });
+
+        function populateVesselCabins(cabins) {
+            const container = document.getElementById('vesselCabinsSection');
+            container.innerHTML = '';
+
+            if (cabins.length === 0) {
+                container.innerHTML = `
+            <p class="text-sm text-gray-500">
+                No cabins available.
+            </p>
+        `;
+                return;
+            }
+
+            cabins.forEach(cabin => {
+                const card = document.createElement('div');
+                card.className = `
+            cabin-row cursor-pointer
+            bg-gray-50 dark:bg-gray-800
+            border border-gray-200 dark:border-gray-700
+            rounded-xl p-4
+            flex justify-between items-center
+            hover:shadow transition
+        `;
+                card.dataset.id = cabin.id;
+
+                card.innerHTML = `
+            <div class="space-y-1 text-sm">
+                <div><strong>Cabin ID:</strong> ${cabin.id}</div>
+                <div><strong>Price:</strong> ${cabin.cabin_price}</div>
+            </div>
+
+            <div class="text-xs text-gray-500">
+                Surcharge: ${cabin.surcharge_percentage}%
+            </div>
+        `;
+
+                container.appendChild(card);
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            const row = e.target.closest('.cabin-row');
+            if (!row) return;
+
+            console.log('Clicked cabin ID:', row.dataset.id);
+        });
+
+
+
+        function openVesselInfoModal(vesselData) {
+
+            modalCabinsCache = vesselData.cabins ?? [];
+
+            populateVesselInfo(vesselData);
+            populateVesselSpecification(vesselData.specification);
+            populateVesselPhotos(vesselData);
+            populateVesselCabins(modalCabinsCache);
+
+            document.getElementById('addVesselPhotoBtn')
+                .addEventListener('click', function() {
+                    if (!vesselData) return;
+                    openAddVesselPhotoModal(vesselData.id);
+                });
+
+            document.getElementById('addCabinBtn')
+                .addEventListener('click', function() {
+                    console.log("Vessel not Data Available");
+                    if (!vesselData) return;
+                    openAddCabinModal(vesselData.id);
+                });
+            initModal({
+                modalId: "vesselInfoModal"
+            });
+        }
+
+        function getVesselFromCacheById(vesselId) {
+            return cachedVesselList.find(vessel => Number(vessel.id) === Number(vesselId)) || null;
+        }
+
+        function initializeVesselSearch() {
+            const input = document.getElementById('vesselSearchInput');
+
+            input.addEventListener('input', function() {
+                const keyword = this.value.toLowerCase().trim();
+
+                const filtered = cachedVesselList.filter(vessel =>
+                    vessel.vessel_name.toLowerCase().includes(keyword)
+                );
+
+                updateVesselList(filtered);
+            });
+        }
+
+
+        function openAddVesselPhotoModal(vesselId) {
+            document.getElementById('addVesselPhotoForm').dataset.vesselId = vesselId;
+
+            initModal({
+                modalId: "addVesselPhotoModal"
+            });
+        }
+
+        document.getElementById('addVesselPhotoForm')
+            .addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const vesselId = this.dataset.vesselId;
+                const files = document.getElementById('vesselPhotoInput').files;
+
+                const formData = new FormData();
+                formData.append('vessel_id', vesselId);
+
+                Array.from(files).forEach(file => {
+                    formData.append('photos[]', file);
+                });
+
+                console.log('ADD VESSEL PHOTO FORM DATA');
+                for (let pair of formData.entries()) {
+                    console.log(pair[0], pair[1]);
+                }
+            });
+
+        function openAddCabinModal(vesselId) {
+            document.getElementById('addCabinForm').dataset.vesselId = vesselId;
+
+            initModal({
+                modalId: "addCabinModal"
+            });
+        }
+
+        document.getElementById('addCabinForm')
+            .addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const vesselId = this.dataset.vesselId;
+                const formData = new FormData(this);
+                const files = document.getElementById('cabinPhotoInput').files;
+
+                formData.append('vessel_id', vesselId);
+
+                Array.from(files).forEach(file => {
+                    formData.append('cabin_photos[]', file);
+                });
+
+                console.log('ADD CABIN FORM DATA');
+                for (let pair of formData.entries()) {
+                    console.log(pair[0], pair[1]);
+                }
+            });
+
+        function openAddCabinModal(vesselId) {
+            document.getElementById('addCabinForm').dataset.vesselId = vesselId;
+
+            initModal({
+                modalId: "addCabinModal"
+            });
+        }
+
+        document.getElementById('addCabinForm')
+            .addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const vesselId = this.dataset.vesselId;
+                const formData = new FormData(this);
+                const files = document.getElementById('cabinPhotoInput').files;
+
+                formData.append('vessel_id', vesselId);
+
+                Array.from(files).forEach(file => {
+                    formData.append('cabin_photos[]', file);
+                });
+
+                console.log('ADD CABIN FORM DATA');
+                for (let pair of formData.entries()) {
+                    console.log(pair[0], pair[1]);
+                }
+            });
+
         const addBtn = document.getElementById("openVesselModal");
         const closeIconBtn = document.getElementById("closeVesselModal");
         const cancelBtn = document.getElementById("closeVesselModalBtn");
@@ -271,20 +829,21 @@
                         },
                         body: formData,
                     });
+                    console.log(response);
+                    if (!response.success) return;
 
-                    const result = await response.json();
-                    if (!response.ok) throw result;
-
-                    alert("Vessel saved successfully!");
+                    initializeVessels();
                     vesselModal.classList.add("hidden");
 
                 } catch (error) {
                     console.error(error);
                     alert("Error saving vessel");
+                } finally {
+
+                    btn.disabled = false;
+                    btn.innerText = "Save Vessel";
                 }
 
-                btn.disabled = false;
-                btn.innerText = "Save Vessel";
             });
 
         }
@@ -299,12 +858,15 @@
 
         if (deleteBtn) {
             deleteBtn.addEventListener("click", () => {
+
+                const confirmed = customConfirm("Deactivate this user?");
+                if (!confirmed) return;
                 console.log("Delete vessel button clicked");
             });
         }
 
         const cabinsContainer = document.getElementById("cabinsContainer");
-        const addCabinBtn = document.getElementById("addCabinBtn");
+        const addCabinBtn = document.getElementById("addNewCabinBtn");
         let cabinIndex = 0;
 
         /* =========================

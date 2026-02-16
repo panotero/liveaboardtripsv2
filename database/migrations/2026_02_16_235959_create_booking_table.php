@@ -11,19 +11,26 @@ return new class extends Migration
      */
     public function up(): void
     {
-
         Schema::create('booking_table', function (Blueprint $table) {
             $table->id();
-            $table->string('ref_code', 50);
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('booking_details_id')->nullable();
-            $table->year('trip_year')->nullable();
-            $table->string('status')->default('pending');
-            $table->date('booking_date')->nullable();
-            $table->unsignedBigInteger('schedule_id')->nullable();
-            $table->unsignedBigInteger('partner_id')->nullable();
+
+            $table->string('ref_code', 100);
+
+            $table->string('user_id', 100)->nullable();
+
+            $table->integer('booking_details_id');
+
+            $table->string('trip_year', 100);
+
+            $table->string('status', 100)
+                ->comment('0 - New, 1 - Confirmed, 3 - Payment Verification, 4 - Paid');
+
+            $table->dateTime('booking_date');
+
+            $table->integer('schedule_id');
+
+            $table->integer('partner_id');
             $table->timestamps();
-            $table->engine = 'InnoDB'; // ensure InnoDB
         });
     }
 

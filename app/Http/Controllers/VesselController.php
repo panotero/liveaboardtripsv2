@@ -10,6 +10,7 @@ use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class VesselController extends Controller
 {
@@ -20,11 +21,52 @@ class VesselController extends Controller
         $this->uploadService = $uploadService;
     }
 
-    public function index()
+    // Existing function: fetch by user role
+    public function index($userId)
     {
-        return response()->json(Vessel::with(['specification', 'cabins'])->get());
+        $user = User::with('role')->where('id', $userId)->first();
+
+        if ($user->role->id === 1) {
+            $vesselList = Vessel::with(['specification', 'cabins.details'])->get();
+            return response()->json([
+                'success' => true,
+                'vesselList' => $vesselList
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Unauthorized'
+        ], 403);
     }
 
+    // ------------------------------
+    // New: fetch all vessels (no user filter)
+    // ------------------------------
+    public function getAll()
+    {
+        $vessels = Vessel::with(['specification', 'cabins.details'])->get();
+        return response()->json([
+            'success' => true,
+            'vessels' => $vessels
+        ]);
+    }
+    public function show($vesselId)
+    {
+        $vessel = Vessel::with(['specification', 'cabins.details'])->find($vesselId);
+
+        if (!$vessel) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vessel not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'vessel' => $vessel
+        ]);
+    }
     public function store(Request $request)
     {
         // dd($request->all());
@@ -46,8 +88,8 @@ class VesselController extends Controller
             'vessel.partner_id'  => 'required|string',
 
             /** Specifications */
-            'vessel.year_model'         => 'nullable|integer|min:1900|max:' . date('Y'),
-            'vessel.year_renovation'    => 'nullable|integer|min:1900|max:' . date('Y'),
+            'vessel.year_model'         => 'nullable|integer|min:1990',
+            'vessel.year_renovation'    => 'nullable|integer|min:1990',
             'vessel.beam'               => 'nullable|string|max:255',
             'vessel.fuel_capacity'      => 'nullable|string|max:255',
             'vessel.cabin_capacity'     => 'nullable|integer|min:0',
@@ -192,5 +234,137 @@ class VesselController extends Controller
         //     DB::rollBack();
         //     return response()->json(['error' => $e->getMessage()], 500);
         // }
+    }
+
+    // ------------------------------
+    // Update vessel, specification, and optionally cabins
+    // ------------------------------
+    public function update(Request $request, $vesselId)
+    {
+        $vessel = Vessel::with(['specification', 'cabins'])->find($vesselId);
+        if (!$vessel) {
+            return response()->json(['success' => false, 'message' => 'Vessel not found'], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'vessel_name' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string|nullable',
+            'thumbnail' => 'sometimes|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'photos' => 'sometimes|array',
+            'photos.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
+            'specification' => 'sometimes|array',
+            'specification.year_model' => 'sometimes|integer|min:1990',
+            'specification.year_renovation' => 'sometimes|integer|min:1990',
+            'cabins' => 'sometimes|array',
+            'cabins.*.id' => 'sometimes|integer|exists:cabin_table,id',
+            'cabins.*.name' => 'sometimes|string|max:255',
+            'cabins.*.description' => 'sometimes|string|nullable',
+            'cabins.*.beds' => 'sometimes|integer|min:1',
+            'cabins.*.guest_capacity' => 'sometimes|integer|min:1',
+            'cabins.*.price' => 'sometimes|numeric|min:0',
+            'cabins.*.surcharge' => 'sometimes|numeric|min:0',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            // ---------------------------
+            // Update vessel main info
+            // ---------------------------
+            if ($request->has('vessel_name')) {
+                $vessel->vessel_name = $request->vessel_name;
+            }
+            if ($request->has('description')) {
+                $vessel->description = $request->description;
+            }
+
+            // Handle thumbnail
+            if ($request->hasFile('thumbnail')) {
+                $vessel->vessel_thumbnail = $this->uploadService
+                    ->uploadSingle($request->file('thumbnail'), "uploads/vessels/{$vessel->partner_id}/thumbnails");
+            }
+
+            // Handle photos
+            if ($request->hasFile('photos')) {
+                $photoPaths = $this->uploadService
+                    ->uploadMultiple($request->file('photos'), "uploads/vessels/{$vessel->partner_id}/vessel/photos");
+                $vessel->vessel_photos = json_encode($photoPaths);
+            }
+
+            $vessel->save();
+
+            // ---------------------------
+            // Update specification
+            // ---------------------------
+            if ($request->has('specification')) {
+                $spec = $vessel->specification;
+                if (!$spec) {
+                    $spec = VesselSpecification::create(['vessel_id' => $vessel->id]);
+                }
+
+                $specData = $request->specification;
+                $spec->update($specData);
+            }
+
+            // ---------------------------
+            // Update cabins
+            // ---------------------------
+            if ($request->has('cabins')) {
+                foreach ($request->cabins as $cabinInput) {
+                    if (isset($cabinInput['id'])) {
+                        // Update existing cabin
+                        $cabin = Cabin::with('details')->find($cabinInput['id']);
+                        if ($cabin) {
+                            $cabin->update([
+                                'cabin_price' => $cabinInput['price'] ?? $cabin->cabin_price,
+                                'surcharge_percentage' => $cabinInput['surcharge'] ?? $cabin->surcharge_percentage,
+                            ]);
+
+                            $cabin->details()->update([
+                                'cabin_name' => $cabinInput['name'] ?? $cabin->details->cabin_name,
+                                'cabin_description' => $cabinInput['description'] ?? $cabin->details->cabin_description,
+                                'guest_capacity' => $cabinInput['guest_capacity'] ?? $cabin->details->guest_capacity,
+                                'bed_number' => $cabinInput['beds'] ?? $cabin->details->bed_number,
+                            ]);
+                        }
+                    } else {
+                        // Optional: create new cabins here if needed
+                    }
+                }
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Vessel updated successfully',
+                'vessel' => $vessel->load(['specification', 'cabins.details'])
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+
+    public function delete(Request $request)
+    {
+        try {
+            $query = Vessel::findOrFail($request->vesselId);
+            $query->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Vessel created successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

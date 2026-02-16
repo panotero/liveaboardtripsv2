@@ -11,25 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booking_cabin_details', function (Blueprint $table) {
+        Schema::create('booking_details', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('booking_id');
-            $table->string('ref_code', 50); // FK to booking
-            $table->unsignedBigInteger('cabin_id');
-            $table->unsignedInteger('guest_number');
-            $table->unsignedBigInteger('schedule_id');
+
+            $table->integer('cabin_id');
+
+            $table->integer('guest_number');
+
+            $table->integer('schedule_id');
             $table->timestamps();
 
             $table->foreign('booking_id')
                 ->references('id')
                 ->on('booking_table')
                 ->onDelete('cascade');
-
-            $table->index('cabin_id');
-            $table->index('schedule_id');
-            $table->index('ref_code');
-
-            $table->engine = 'InnoDB';
         });
     }
 
@@ -38,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('booking_cabin_details');
+        Schema::dropIfExists('booking_details');
     }
 };

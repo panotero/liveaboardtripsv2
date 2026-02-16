@@ -9,6 +9,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\MailerController;
 use App\Http\Middleware\CheckUserStatus;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,4 +77,6 @@ Route::middleware(['auth', 'check.status', 'prevent-back-history'])->group(funct
         Route::get('/', [NotificationController::class, 'getNotifications']);
     });
 });
+
+Route::get('/search', [SearchController::class, 'search']);
 require __DIR__ . '/auth.php';

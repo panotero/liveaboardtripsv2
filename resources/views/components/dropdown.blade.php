@@ -64,13 +64,13 @@
                 </div>
             </div>
 
-            {{-- Profile
-            @if ($showProfile)
-                <x-dropdown-link :href="route('profile')">
-                    {{ __('Profile') }}
+            {{-- @if ($showProfile)
+                <x-dropdown-link :href="route('wallet')">
+                    {{ __('Wallet') }}
                 </x-dropdown-link>
-            @endif
+            @endif --}}
 
+            {{-- Profile
             @if ($showSettings)
                 <x-dropdown-link :href="route('settings')">
                     {{ __('Settings') }}

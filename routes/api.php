@@ -18,10 +18,14 @@ use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\ApprovalsController;
+use App\Http\Controllers\CabinController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\FinanceBudgetController;
 use App\Http\Controllers\FinanceActivityController;
 use App\Http\Controllers\VesselController;
+use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,11 +58,6 @@ Route::middleware(['auth'])->group(function () {
         ];
     });
 
-    //users
-    Route::prefix('vessels')->group(function () {
-        Route::get('/', [VesselController::class, 'index']);
-        Route::post('/', [VesselController::class, 'store']);
-    });
 
     Route::get('/load_menu', [MenusController::class, 'index']);
 
@@ -70,13 +69,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::post('/notifications/mark-read', [NotificationController::class, 'markRead']);
-    Route::post('/documents/route', [RoutingController::class, 'routeDocument']);
-    Route::prefix('approvals')->group(function () {
-        Route::get('/', [ApprovalsController::class, 'getMyApprovals']);
-        Route::post('/{approval_id}/action', [ApprovalsController::class, 'handleApprovalAction']);
-    });
     Route::get('/notifications/stream', [NotificationController::class, 'stream']);
-    Route::get('/OfficeDocs', [DocumentController::class, 'OfficeDocs']);
 
     //users
     Route::prefix('users')->group(function () {
@@ -101,9 +94,6 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}', [MenusController::class, 'destroy']);
         Route::post('/swap', [MenusController::class, 'swapMenuOrder']);
     });
-
-
-
     Route::get('/roles', fn() => DB::table('setting_role')->get());
 
     Route::post('/test-api', function (Request $request) {
@@ -112,5 +102,47 @@ Route::middleware(['auth'])->group(function () {
             'success' => true,
             'message' => 'API successfully triggered!',
         ]);
+    });
+
+    Route::prefix('vessels')->group(function () {
+        Route::get('/{userid}', [VesselController::class, 'index']);      // existing
+        Route::get('/', [VesselController::class, 'getAll']);            // new: get all vessels
+        Route::post('/', [VesselController::class, 'store']);            // existing
+        Route::get('/details/{vesselId}', [VesselController::class, 'show']);
+        Route::put('/{vesselId}', [VesselController::class, 'update']);  // new: update vessel
+        Route::delete('/', [VesselController::class, 'delete']);         // existing
+    });
+
+
+    Route::prefix('cabin')->group(function () {
+        Route::get('/', [CabinController::class, 'index']);         // Fetch all cabins
+        Route::get('/{id}', [CabinController::class, 'show']);     // Fetch single cabin
+        Route::post('/', [CabinController::class, 'store']);       // Create cabin
+        Route::put('/{id}', [CabinController::class, 'update']);   // Update cabin
+        Route::delete('/{id}', [CabinController::class, 'destroy']); // Delete cabin
+    });
+
+    Route::prefix('destinations')->group(function () {
+        Route::post('/', [DestinationController::class, 'store']);
+        Route::get('/', [DestinationController::class, 'index']);
+        Route::get('/{id}', [DestinationController::class, 'show']);
+        Route::put('/{id}', [DestinationController::class, 'update']);
+        Route::delete('/{id}', [DestinationController::class, 'destroy']);
+    });
+
+    Route::prefix('schedules')->group(function () {
+        Route::post('/', [ScheduleController::class, 'store']);
+        Route::get('/', [ScheduleController::class, 'index']);
+        Route::get('/{id}', [ScheduleController::class, 'show']);
+        Route::put('/{id}', [ScheduleController::class, 'update']);
+        Route::delete('/{id}', [ScheduleController::class, 'destroy']);
+    });
+
+    Route::prefix('booking')->group(function () {
+        Route::post('/', [BookingController::class, 'store']);
+        Route::get('/', [BookingController::class, 'index']);
+        Route::get('/{id}', [BookingController::class, 'show']);
+        Route::put('/{id}', [BookingController::class, 'update']);
+        Route::delete('/{id}', [BookingController::class, 'destroy']);
     });
 });
