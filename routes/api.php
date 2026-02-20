@@ -107,6 +107,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('vessels')->group(function () {
         Route::get('/{userid}', [VesselController::class, 'index']);      // existing
         Route::get('/', [VesselController::class, 'getAll']);            // new: get all vessels
+        Route::get('/list', [VesselController::class, 'list'])->name('vesselList');            // new: get all vessels
         Route::post('/', [VesselController::class, 'store']);            // existing
         Route::get('/details/{vesselId}', [VesselController::class, 'show']);
         Route::put('/{vesselId}', [VesselController::class, 'update']);  // new: update vessel

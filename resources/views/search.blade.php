@@ -26,24 +26,11 @@
     </style>
 </head>
 
-<body class="bg-slate-50 font-sans">
 
+<body class="bg-sky-50 text-gray-800">
+    <x-navbar />
 
-
-    <nav class="bg-slate-900 text-white shadow-lg p-4 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold tracking-tight flex items-center">
-                <i class="fa-solid fa-anchor mr-2 text-blue-400"></i>AquaVenture
-            </h1>
-            <div class="hidden md:flex space-x-6 text-slate-300 font-medium text-sm">
-                <a href="#" class="hover:text-white transition">Destinations</a>
-                <a href="#" class="hover:text-white transition">Vessels</a>
-                <a href="#" class="hover:text-white transition">Expeditions</a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="max-w-7xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
+    <main class="max-w-7xl mx-auto px-4 py-8 pt-28  flex flex-col lg:flex-row gap-8">
 
         <aside class="w-full lg:w-1/4 space-y-6">
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
@@ -78,14 +65,12 @@
         </aside>
 
         <section class="w-full lg:w-3/4">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold text-slate-800">Expeditions in El Nido</h2>
-                <p class="text-slate-500">Discover hidden lagoons and crystal clear waters in Palawan, Philippines.</p>
-            </div>
 
             <div id="vessel-list" class="space-y-6"></div>
         </section>
     </main>
+
+    <x-footer />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <script>
         const expeditions = [{
@@ -150,6 +135,191 @@
                     "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=800&q=80"
                 ],
                 badge: "Best for Diving"
+            },
+            {
+                id: "exp2",
+                destination: "Coron & Linapacan",
+                description: "Shipwrecks and the clearest waters in the world.",
+                vessel: "Azure Winds",
+                cabins: 8,
+                maxGuests: 16,
+                schedule: {
+                    0: {
+                        dateStart: "Feb 02, 2026",
+                        dateEnd: "Feb 08, 2026",
+                        itinerary: "Wreck diving, hidden beach BBQ"
+                    },
+                    1: {
+                        dateStart: "Feb 15, 2026",
+                        dateEnd: "Feb 21, 2026",
+                        itinerary: "Deep sea exploration"
+                    },
+                    2: {
+                        dateStart: "Mar 01, 2026",
+                        dateEnd: "Mar 07, 2026",
+                        itinerary: "Culion historical tour"
+                    },
+                    3: {
+                        dateStart: "Mar 15, 2026",
+                        dateEnd: "Mar 21, 2026",
+                        itinerary: "Barracuda Lake diving"
+                    }
+                },
+                price: 1890,
+                images: [
+                    "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=800&q=80"
+                ],
+                badge: "Best for Diving"
+            },
+            {
+                id: "exp2",
+                destination: "Coron & Linapacan",
+                description: "Shipwrecks and the clearest waters in the world.",
+                vessel: "Azure Winds",
+                cabins: 8,
+                maxGuests: 16,
+                schedule: {
+                    0: {
+                        dateStart: "Feb 02, 2026",
+                        dateEnd: "Feb 08, 2026",
+                        itinerary: "Wreck diving, hidden beach BBQ"
+                    },
+                    1: {
+                        dateStart: "Feb 15, 2026",
+                        dateEnd: "Feb 21, 2026",
+                        itinerary: "Deep sea exploration"
+                    },
+                    2: {
+                        dateStart: "Mar 01, 2026",
+                        dateEnd: "Mar 07, 2026",
+                        itinerary: "Culion historical tour"
+                    },
+                    3: {
+                        dateStart: "Mar 15, 2026",
+                        dateEnd: "Mar 21, 2026",
+                        itinerary: "Barracuda Lake diving"
+                    }
+                },
+                price: 1890,
+                images: [
+                    "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=800&q=80"
+                ],
+                badge: "Best for Diving"
+            },
+            {
+                id: "exp2",
+                destination: "Coron & Linapacan",
+                description: "Shipwrecks and the clearest waters in the world.",
+                vessel: "Azure Winds",
+                cabins: 8,
+                maxGuests: 16,
+                schedule: {
+                    0: {
+                        dateStart: "Feb 02, 2026",
+                        dateEnd: "Feb 08, 2026",
+                        itinerary: "Wreck diving, hidden beach BBQ"
+                    },
+                    1: {
+                        dateStart: "Feb 15, 2026",
+                        dateEnd: "Feb 21, 2026",
+                        itinerary: "Deep sea exploration"
+                    },
+                    2: {
+                        dateStart: "Mar 01, 2026",
+                        dateEnd: "Mar 07, 2026",
+                        itinerary: "Culion historical tour"
+                    },
+                    3: {
+                        dateStart: "Mar 15, 2026",
+                        dateEnd: "Mar 21, 2026",
+                        itinerary: "Barracuda Lake diving"
+                    }
+                },
+                price: 1890,
+                images: [
+                    "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=800&q=80"
+                ],
+                badge: "Best for Diving"
+            },
+            {
+                id: "exp2",
+                destination: "Coron & Linapacan",
+                description: "Shipwrecks and the clearest waters in the world.",
+                vessel: "Azure Winds",
+                cabins: 8,
+                maxGuests: 16,
+                schedule: {
+                    0: {
+                        dateStart: "Feb 02, 2026",
+                        dateEnd: "Feb 08, 2026",
+                        itinerary: "Wreck diving, hidden beach BBQ"
+                    },
+                    1: {
+                        dateStart: "Feb 15, 2026",
+                        dateEnd: "Feb 21, 2026",
+                        itinerary: "Deep sea exploration"
+                    },
+                    2: {
+                        dateStart: "Mar 01, 2026",
+                        dateEnd: "Mar 07, 2026",
+                        itinerary: "Culion historical tour"
+                    },
+                    3: {
+                        dateStart: "Mar 15, 2026",
+                        dateEnd: "Mar 21, 2026",
+                        itinerary: "Barracuda Lake diving"
+                    }
+                },
+                price: 1890,
+                images: [
+                    "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=800&q=80"
+                ],
+                badge: "Best for Diving"
+            },
+            {
+                id: "exp2",
+                destination: "Coron & Linapacan",
+                description: "Shipwrecks and the clearest waters in the world.",
+                vessel: "Azure Winds",
+                cabins: 8,
+                maxGuests: 16,
+                schedule: {
+                    0: {
+                        dateStart: "Feb 02, 2026",
+                        dateEnd: "Feb 08, 2026",
+                        itinerary: "Wreck diving, hidden beach BBQ"
+                    },
+                    1: {
+                        dateStart: "Feb 15, 2026",
+                        dateEnd: "Feb 21, 2026",
+                        itinerary: "Deep sea exploration"
+                    },
+                    2: {
+                        dateStart: "Mar 01, 2026",
+                        dateEnd: "Mar 07, 2026",
+                        itinerary: "Culion historical tour"
+                    },
+                    3: {
+                        dateStart: "Mar 15, 2026",
+                        dateEnd: "Mar 21, 2026",
+                        itinerary: "Barracuda Lake diving"
+                    }
+                },
+                price: 1890,
+                images: [
+                    "https://images.unsplash.com/photo-1505144808419-1957a94ca61e?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1516690561799-46d8f74f9abf?auto=format&fit=crop&w=800&q=80",
+                    "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=800&q=80"
+                ],
+                badge: "Best for Diving"
             }
         ];
 
@@ -162,10 +332,10 @@
                         <div id="carousel-${exp.id}" class="relative w-full h-full" data-carousel="slide">
                             <div class="relative h-full overflow-hidden">
                                 ${exp.images.map((img, index) => `
-                                                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                                                    <img src="${img}" class="absolute block w-full h-full object-cover" alt="Vessel Image ${index + 1}">
-                                                                </div>
-                                                            `).join('')}
+                                                                                                                                                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                                                                                                                                                <img src="${img}" class="absolute block w-full h-full object-cover" alt="Vessel Image ${index + 1}">
+                                                                                                                                                            </div>
+                                                                                                                                                        `).join('')}
                             </div>
                             <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
                                 <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 group-hover:bg-white/50 ring-1 ring-white/50">
@@ -198,21 +368,21 @@
                         <div class="flex-1 overflow-y-auto schedule-overflow pr-2 mb-4">
                             <div class="divide-y divide-slate-100">
                                 ${Object.values(exp.schedule).map(sched => `
-                                                                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 py-4 items-center hover:bg-slate-50 transition-colors px-2 rounded-lg">
-                                                                    <div>
-                                                                        <span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Dates</span>
-                                                                        <p class="text-xs font-bold text-slate-700">${sched.dateStart} - ${sched.dateEnd}</p>
-                                                                    </div>
-                                                                    <div>
-                                                                        <span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Guests</span>
-                                                                        <p class="text-xs font-semibold text-slate-600">${exp.cabins} Cabins / Max ${exp.maxGuests}</p>
-                                                                    </div>
-                                                                    <div class="col-span-2 md:col-span-1">
-                                                                        <span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Route Highlights</span>
-                                                                        <p class="text-xs font-semibold text-slate-600 truncate">${sched.itinerary}</p>
-                                                                    </div>
-                                                                </div>
-                                                            `).join('')}
+                                                                                                                                                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 py-4 items-center hover:bg-slate-50 transition-colors px-2 rounded-lg">
+                                                                                                                                                                <div>
+                                                                                                                                                                    <span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Dates</span>
+                                                                                                                                                                    <p class="text-xs font-bold text-slate-700">${sched.dateStart} - ${sched.dateEnd}</p>
+                                                                                                                                                                </div>
+                                                                                                                                                                <div>
+                                                                                                                                                                    <span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Guests</span>
+                                                                                                                                                                    <p class="text-xs font-semibold text-slate-600">${exp.cabins} Cabins / Max ${exp.maxGuests}</p>
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-span-2 md:col-span-1">
+                                                                                                                                                                    <span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Route Highlights</span>
+                                                                                                                                                                    <p class="text-xs font-semibold text-slate-600 truncate">${sched.itinerary}</p>
+                                                                                                                                                                </div>
+                                                                                                                                                            </div>
+                                                                                                                                                        `).join('')}
                             </div>
                         </div>
 
@@ -240,6 +410,7 @@
 
         renderExpeditions();
     </script>
+
 </body>
 
 </html>

@@ -32,12 +32,12 @@
             <!-- LEFT SIDE (Branding Panel) -->
             <div class="flex flex-col justify-center items-center p-10 text-white text-center space-y-6">
 
-                <div>
+                <a href="/">
 
                     <h1 class="text-3xl md:text-4xl font-bold mt-2 leading-tight">
                         LiveAboardTrips
                     </h1>
-                </div>
+                </a>
 
 
                 <p class="text-sm opacity-80 pt-4 max-w-xs">

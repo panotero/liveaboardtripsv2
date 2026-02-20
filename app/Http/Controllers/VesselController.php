@@ -51,6 +51,17 @@ class VesselController extends Controller
             'vessels' => $vessels
         ]);
     }
+
+    //list only without cabin information. used for dropdown menus
+    public function list()
+    {
+        $vessels = Vessel::get();
+
+        return response()->json([
+            'success' => true,
+            'vessels' => $vessels
+        ]);
+    }
     public function show($vesselId)
     {
         $vessel = Vessel::with(['specification', 'cabins.details'])->find($vesselId);

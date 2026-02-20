@@ -84,4 +84,20 @@ class PageController extends Controller
     {
         return "page settings";
     }
+
+    public function destinations()
+    {
+
+        return view('destinations');
+    }
+    public function trips()
+    {
+
+        return view('trips');
+    }
+    public function contactUs()
+    {
+
+        return view('contactUs');
+    }
 }

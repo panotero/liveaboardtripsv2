@@ -30,65 +30,7 @@
 </head>
 
 <body class="bg-sky-50 text-gray-800">
-    <!-- Navigation -->
-    <header id="navbar"
-        class="fixed top-0 left-0 w-full z-50 backdrop-blur-lg bg-white/10 border-b border-white/20 shadow-sm transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="text-white text-2xl font-bold tracking-wide">
-                    LiveAboardTrips
-                </div>
-
-                <!-- Desktop Menu -->
-                <nav class="hidden md:flex items-center space-x-8 text-white font-medium">
-                    <a href="#" class="hover:text-cyan-200 transition">Home</a>
-                    <a href="#" class="hover:text-cyan-200 transition">Destinations</a>
-                    <a href="#" class="hover:text-cyan-200 transition">Trips</a>
-                    <a href="#" class="hover:text-cyan-200 transition">Contact Us</a>
-
-                    <a href="#"
-                        class="bg-white text-blue-600 px-5 py-2 rounded-full font-semibold hover:bg-blue-50 transition shadow-lg">
-                        Book Now
-                    </a>
-
-                    <a href="/login"
-                        class="border border-white/70 px-4 py-2 rounded-full hover:bg-white/10 transition">
-                        Partner Login
-                    </a>
-                </nav>
-
-                <!-- Mobile Toggle Button -->
-                <button id="menuBtn" class="md:hidden text-white focus:outline-none">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobileMenu"
-            class="md:hidden overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-in-out px-6 bg-white/10 backdrop-blur-xl border-t border-white/20">
-            <div class="flex flex-col space-y-4 text-white font-medium py-6">
-                <a href="#" class="hover:text-cyan-200 transition">Home</a>
-                <a href="#" class="hover:text-cyan-200 transition">Destinations</a>
-                <a href="#" class="hover:text-cyan-200 transition">Trips</a>
-                <a href="#" class="hover:text-cyan-200 transition">Contact Us</a>
-
-                <a href="#"
-                    class="bg-white text-blue-600 px-5 py-3 rounded-full font-semibold text-center shadow-lg">
-                    Book Now
-                </a>
-
-                <a href="#"
-                    class="border border-white/70 px-4 py-3 rounded-full text-center hover:bg-white/10 transition">
-                    Partner Login
-                </a>
-            </div>
-        </div>
-    </header>
+    <x-navbar />
 
     <!-- Hero Search Section -->
     <section
@@ -128,7 +70,7 @@
                         <label class="block text-sm font-semibold text-gray-600 mb-2">
                             Destination
                         </label>
-                        <input type="text" placeholder="e.g. Tubbataha, Maldives, Raja Ampat"
+                        <input type="text" id="destination" placeholder="e.g. Tubbataha, Maldives, Raja Ampat"
                             class="w-full px-5 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-400 outline-none" />
                     </div>
 
@@ -138,19 +80,19 @@
                             <label class="block text-sm font-semibold text-gray-600 mb-2">
                                 Check-in
                             </label>
-                            <input type="date"
+                            <input type="date" id="date"
                                 class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-400 outline-none" />
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-gray-600 mb-2">
                                 Duration
                             </label>
-                            <select
+                            <select id="duration"
                                 class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-400 outline-none">
-                                <option>3–4 Nights</option>
-                                <option>5–7 Nights</option>
-                                <option>8–10 Nights</option>
-                                <option>10+ Nights</option>
+                                <option value="3-4">3–4 Nights</option>
+                                <option value="5-7">5–7 Nights</option>
+                                <option value="8-10">8–10 Nights</option>
+                                <option value="11">11+ Nights</option>
                             </select>
                         </div>
                     </div>
@@ -158,19 +100,19 @@
                     <!-- Divers -->
                     <div>
                         <label class="block text-sm font-semibold text-gray-600 mb-2">
-                            Divers
+                            Number of PAX
                         </label>
-                        <select
+                        <select id="PAX"
                             class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-400 outline-none">
-                            <option>1 Diver</option>
-                            <option>2 Divers</option>
-                            <option>3 Divers</option>
-                            <option>4+ Divers</option>
+                            <option value="1">1 PAX</option>
+                            <option value="2">2 PAX</option>
+                            <option value="5">3 PAX</option>
+                            <option value="4">4+ PAX</option>
                         </select>
                     </div>
 
                     <!-- Search Button -->
-                    <button
+                    <button id="searchbutton"
                         class="w-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-semibold py-4 rounded-xl text-lg shadow-lg hover:scale-[1.02] transition-all duration-300">
                         Search Liveaboards
                     </button>
@@ -274,48 +216,18 @@
             </div>
         </div>
     </section>
-
     <!-- Underwater Gallery Section -->
     <section class="py-20 px-6 bg-gradient-to-br from-cyan-100 via-blue-50 to-teal-100">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-5xl font-bold text-center mb-16 text-blue-800">
-                Underwater Wonders
+                Explore Liveaboard Destinations
             </h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="group relative overflow-hidden rounded-3xl h-80 bg-blue-200 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800" alt="Marine Life"
-                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-end p-6">
-                        <p class="text-white text-xl font-semibold">
-                            Vibrant Coral Gardens
-                        </p>
-                    </div>
-                </div>
-                <div class="group relative overflow-hidden rounded-3xl h-80 bg-blue-200 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800" alt="Diving"
-                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-teal-900 via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-end p-6">
-                        <p class="text-white text-xl font-semibold">
-                            Majestic Sea Creatures
-                        </p>
-                    </div>
-                </div>
-                <div class="group relative overflow-hidden rounded-3xl h-80 bg-blue-200 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=800" alt="Reef"
-                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-cyan-900 via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-end p-6">
-                        <p class="text-white text-xl font-semibold">
-                            Crystal Clear Waters
-                        </p>
-                    </div>
-                </div>
+            <div id="galleryGrid" class="grid md:grid-cols-3 gap-6">
+                <!-- Dynamic gallery items will populate here -->
             </div>
         </div>
     </section>
-    <section class="py-20 px-6 bg-gradient-to-br from-cyan-100 via-blue-50 to-teal-100">
+    <section class="py-20 px-6 bg-gradient-to-br from-cyan-100 via-blue-50 to-teal-100 hidden">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-4xl md:text-5xl font-bold text-center mb-14 text-blue-800">
                 Underwater Wonders
@@ -453,7 +365,7 @@
     </section>
 
     <!-- Partner Vessels Section -->
-    <section class="py-20 px-6 bg-sky-50">
+    <section class="py-20 px-6 bg-sky-50 hidden">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-5xl font-bold text-center mb-16 text-blue-800">
                 Our Fleet of Vessels
@@ -479,66 +391,66 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-20 px-6 bg-gradient-to-br from-blue-100 via-cyan-50 to-teal-100">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-5xl font-bold text-center mb-16 text-blue-800">
-                Diver Reviews
-            </h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div
-                    class="bg-white rounded-3xl p-8 border border-blue-200 hover:shadow-xl transition-all duration-300">
-                    <div class="flex items-center mb-6">
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="mb-16">
+                <p class="text-4xl font-black uppercase tracking-tighter text-slate-900 leading-none">The <span
+                        class="bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Reader</span>
+                    Review</p>
+            </div>
+
+            <div id="reviews-carousel" class="relative w-full" data-carousel="slide">
+                <div class="relative h-[500px] overflow-hidden rounded-[3rem] md:h-[350px]" id="testimonial-carousel">
+
+                    <!-- SLIDE TEMPLATE -->
+                    <div class="hidden duration-700 ease-in-out testimonial-slide" data-carousel-item>
                         <div
-                            class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-2xl font-bold text-white">
-                            MR
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold text-blue-800 text-lg">Marcus Rivera</h4>
-                            <p class="text-gray-500 text-sm">PADI Divemaster</p>
+                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2
+                   bg-slate-50 border border-slate-100 p-8 md:p-12
+                   flex flex-col md:flex-row items-center gap-10 shadow-sm">
+
+                            <!-- Avatar -->
+                            <div
+                                class="w-32 h-32 md:w-44 md:h-44 rounded-full overflow-hidden
+                       flex-shrink-0 border-4 border-white shadow-lg">
+                                <img class="avatar w-full h-full object-cover grayscale" alt="User">
+                            </div>
+
+                            <!-- Content -->
+                            <div class="flex-grow">
+                                <!-- Stars -->
+                                <div class="flex items-center gap-1 mb-4 text-amber-400">
+                                    <template id="stars-template">
+                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                    </template>
+                                </div>
+
+                                <p
+                                    class="comment text-xl md:text-2xl font-light text-slate-700 leading-snug mb-6 italic">
+                                </p>
+
+                                <div class="flex items-center gap-4">
+                                    <span class="h-[1px] w-8 bg-blue-600"></span>
+                                    <p class="name text-[10px] font-black uppercase tracking-widest text-slate-900">
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <p class="text-gray-700 leading-relaxed">
-                        "Best liveaboard experience ever! The crew was knowledgeable, the
-                        boat was pristine, and the dive sites were absolutely stunning.
-                        Can't wait to book again!"
-                    </p>
+
                 </div>
-                <div
-                    class="bg-white rounded-3xl p-8 border border-teal-200 hover:shadow-xl transition-all duration-300">
-                    <div class="flex items-center mb-6">
-                        <div
-                            class="w-16 h-16 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-2xl font-bold text-white">
-                            LK
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold text-teal-800 text-lg">Lisa Kim</h4>
-                            <p class="text-gray-500 text-sm">Advanced Open Water</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 leading-relaxed">
-                        "The accommodations were luxurious and the food was incredible.
-                        Saw manta rays, sharks, and countless tropical fish. This trip
-                        exceeded all expectations!"
-                    </p>
-                </div>
-                <div
-                    class="bg-white rounded-3xl p-8 border border-cyan-200 hover:shadow-xl transition-all duration-300">
-                    <div class="flex items-center mb-6">
-                        <div
-                            class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-2xl font-bold text-white">
-                            TB
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-bold text-cyan-800 text-lg">Tom Bradley</h4>
-                            <p class="text-gray-500 text-sm">Rescue Diver</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 leading-relaxed">
-                        "Professional crew, amazing dive sites, and great value for money.
-                        The itinerary was perfect with a good balance of diving and
-                        relaxation. Highly recommended!"
-                    </p>
+
+
+                <div class="absolute z-30 flex space-x-3 -bottom-10 left-1/2 -translate-x-1/2"
+                    id="carousel-indicators">
+                    <button type="button" class="w-2 h-2 rounded-full bg-blue-600" aria-current="true"
+                        aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                    <button type="button" class="w-2 h-2 rounded-full bg-slate-300" aria-current="false"
+                        aria-label="Slide 2" data-carousel-slide-to="1"></button>
                 </div>
             </div>
         </div>
@@ -580,22 +492,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-blue-900 py-12 px-6">
-        <div class="max-w-7xl mx-auto text-center">
-            <p class="text-blue-100 text-lg mb-4">
-                © 2026 Dive Paradise Liveaboards. All rights reserved.
-            </p>
-            <div class="flex justify-center gap-6">
-                <a href="#" class="text-blue-200 hover:text-white transition-colors duration-300">Privacy
-                    Policy</a>
-                <a href="#" class="text-blue-200 hover:text-white transition-colors duration-300">Terms of
-                    Service</a>
-                <a href="#" class="text-blue-200 hover:text-white transition-colors duration-300">Dive
-                    Safety</a>
-            </div>
-        </div>
-    </footer>
+    <x-footer />
 
     <script>
         const slides = [{
@@ -676,37 +573,197 @@
             isOpen = !isOpen;
         });
 
-        //nav bar on scrol controllere e
-        const navbar = document.getElementById("navbar");
+        const searchbutton = document.getElementById("searchbutton");
+        const destination = document.getElementById("destination");
+        const date = document.getElementById("date");
+        const duration = document.getElementById("duration");
+        const PAX = document.getElementById("PAX");
 
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 50) {
-                navbar.classList.remove("bg-white/10", "border-white/20");
-                navbar.classList.add("bg-white/90", "border-gray-200", "shadow-md");
+        searchbutton.addEventListener("click", function() {
 
-                // Change text color for readability
-                navbar.querySelectorAll("a, div, button, svg").forEach((el) => {
-                    el.classList.remove("text-white");
-                    el.classList.add("text-gray-800");
+            const errors = validateSearchForm({
+                destination: destination.value,
+                date: date.value,
+                duration: duration.value,
+                pax: PAX.value
+            });
+            if (errors.length > 0) {
+                console.group("Form validation errors");
+                errors.forEach(err => {
+                    console.warn(`${err.field}: ${err.message}`);
                 });
-            } else {
-                navbar.classList.add("bg-white/10", "border-white/20");
-                navbar.classList.remove(
-                    "bg-white/90",
-                    "border-gray-200",
-                    "shadow-md",
-                );
+                console.groupEnd();
+                return;
+            }
+            const params = new URLSearchParams({
+                destination: destination.value.trim(),
+                date: date.value,
+                duration: duration.value,
+                pax: PAX.value,
+            });
 
-                navbar.querySelectorAll("a, div, button, svg").forEach((el) => {
-                    if (el.textContent.toLocaleLowerCase().trim() === "book now") {
-                        el.classList.add("text-blue");
-                    } else {
-                        el.classList.add("text-white");
-                    }
-                    el.classList.remove("text-gray-800");
+            // Basic validation
+            if (!destination.value || !date.value) {
+                alert("Please enter destination and date.");
+                return;
+            }
+
+            window.location.href = `/search?${params.toString()}`;
+        });
+
+        function validateSearchForm({
+            destination,
+            date,
+            duration,
+            pax
+        }) {
+            const errors = [];
+
+            // Destination
+            if (!destination || destination.trim().length < 2) {
+                errors.push({
+                    field: "destination",
+                    message: "Destination is null or too short"
                 });
             }
+
+            // Date
+            if (!date) {
+                errors.push({
+                    field: "date",
+                    message: "Date is null or invalid"
+                });
+            }
+
+            // Duration
+            if (!duration) {
+                errors.push({
+                    field: "duration",
+                    message: "Duration is null"
+                });
+            }
+
+            // PAX
+            if (!pax) {
+                errors.push({
+                    field: "PAX",
+                    message: "PAX is null"
+                });
+            }
+
+            return errors;
+        }
+    </script>
+
+    <script>
+        const testimonials = [{
+                name: "Julian Vane",
+                role: "Underwater Photographer",
+                comment: "The liveaboard experience was unreal. Waking up directly above world-class dive sites saved so much time and gave us more bottom time every day.",
+                image: "https://randomuser.me/api/portraits/men/32.jpg"
+            },
+            {
+                name: "Elena Cross",
+                role: "Certified Rescue Diver",
+                comment: "Everything was seamless — from dive briefings to meals. The crew knew the sites perfectly and always put safety first.",
+                image: "https://randomuser.me/api/portraits/women/44.jpg"
+            },
+            {
+                name: "Marcus Lee",
+                role: "Tech Diver",
+                comment: "Plenty of space for gear, clean cabins, and smooth sailing between destinations. This is how liveaboard diving should be done.",
+                image: "https://randomuser.me/api/portraits/men/75.jpg"
+            },
+            {
+                name: "Sophia Hart",
+                role: "Travel Content Creator",
+                comment: "I loved being completely offline and focused on diving. Sunrise dives, sunset decks, and incredible routes — pure freedom.",
+                image: "https://randomuser.me/api/portraits/women/68.jpg"
+            },
+            {
+                name: "Daniel Frost",
+                role: "Advanced Open Water Diver",
+                comment: "Best value for serious divers. Multiple dives per day, amazing food, and unforgettable dive sites you can’t reach from shore.",
+                image: "https://randomuser.me/api/portraits/men/18.jpg"
+            }
+        ];
+
+        // Duplicate template per testimonial
+        const carousel = document.getElementById("testimonial-carousel");
+        const template = carousel.querySelector(".testimonial-slide");
+        const starsTemplate = document.getElementById("stars-template").innerHTML;
+
+        testimonials.forEach((t, index) => {
+            const slide = index === 0 ? template : template.cloneNode(true);
+
+            slide.querySelector(".avatar").src = t.image;
+            slide.querySelector(".comment").textContent = `"${t.comment}"`;
+            slide.querySelector(".name").textContent = `${t.name} — ${t.role}`;
+
+            // 5 stars
+            const starsContainer = slide.querySelector(".flex.items-center.gap-1");
+            starsContainer.innerHTML = starsTemplate.repeat(5);
+
+            slide.classList.remove("hidden");
+            carousel.appendChild(slide);
         });
+
+        // Remove original template if duplicated
+        template.remove();
+    </script>
+
+
+    <script>
+        // Array of liveaboard destinations
+        const liveaboardDestinations = [{
+                name: "Tubbataha Reefs, Philippines",
+                description: "A remote UNESCO World Heritage marine park in the Sulu Sea with dramatic coral walls, abundant sharks, rays, turtles, and huge schools of fish — accessible only by liveaboard during the dive season. :contentReference[oaicite:0]{index=0}",
+                image: "https://www.zubludiving.com/images/Philippines/Palawan/Tubbataha/Tubbataha-Reefs-Diving-Philippines-Banner.jpg"
+            },
+            {
+                name: "Raja Ampat, Indonesia",
+                description: "Part of the Coral Triangle, Raja Ampat is one of the most biodiverse places on Earth, with vibrant reefs, manta rays, sharks, turtles, and endless photo opportunities — best experienced via liveaboard. :contentReference[oaicite:1]{index=1}",
+                image: "https://www.indonesia.travel/contentassets/aad7d1e73a3a408fbbd031f5bf435dc6/discover-raja-ampat-travel-inspiration-to-indonesias-heavenly-eastern-archipelago.jpg"
+            },
+            {
+                name: "Komodo National Park, Indonesia",
+                description: "World‑famous liveaboard destination between Flores and Sumbawa where divers encounter whale sharks, manta rays, and dramatic reef scenery during multi‑day sea safaris. :contentReference[oaicite:2]{index=2}",
+                image: "https://res.cloudinary.com/zublu/image/fetch/f_webp,w_600,h_360,c_scale,q_50/https://www.zubludiving.com/images/Indonesia/NTT/Komodo-Sangeang/Komodo-Darat-Indonesia-Banner.jpg"
+            },
+            {
+                name: "Similan Islands, Thailand",
+                description: "Thai Andaman Sea liveaboard site with clear water, granite islands, Richelieu Rock, manta rays, whale sharks, and rich macro life — perfect for underwater photography. :contentReference[oaicite:3]{index=3}",
+                image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/c7/ed/7b/photo4jpg.jpg?w=1200&h=-1&s=1"
+            },
+            {
+                name: "Palau, Micronesia",
+                description: "Palau’s Blue Corner and German Channel are legendary dive sites, offering sharks, barracudas, giant schools of fish, and easy access for multi‑day liveaboards. :contentReference[oaicite:4]{index=4}",
+                image: "https://www.worldtravelguide.net/wp-content/uploads/2017/04/Think-PIoM-Palau-626815916-Norimoto-copy.jpg"
+            }
+        ];
+
+        // Function to populate the gallery
+        function populateGallery() {
+            const galleryGrid = document.getElementById("galleryGrid");
+            galleryGrid.innerHTML = ""; // Clear any existing content
+
+            liveaboardDestinations.forEach(dest => {
+                const card = document.createElement("div");
+                card.className = "group relative overflow-hidden rounded-3xl h-80 bg-blue-200 shadow-lg";
+
+                card.innerHTML = `
+            <img src="${dest.image}" alt="${dest.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex flex-col justify-end p-6">
+                <p class="text-white text-xl font-semibold">${dest.name}</p>
+                <p class="text-white text-sm mt-1">${dest.description}</p>
+            </div>
+        `;
+                galleryGrid.appendChild(card);
+            });
+        }
+
+        // Initialize gallery on page load
+        populateGallery();
     </script>
 </body>
 

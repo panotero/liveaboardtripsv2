@@ -79,4 +79,7 @@ Route::middleware(['auth', 'check.status', 'prevent-back-history'])->group(funct
 });
 
 Route::get('/search', [SearchController::class, 'search']);
+Route::get('/destinations', [PageController::class, 'destinations']);
+Route::get('/trips', [PageController::class, 'trips']);
+Route::get('/contactUs', [PageController::class, 'contactUs']);
 require __DIR__ . '/auth.php';
