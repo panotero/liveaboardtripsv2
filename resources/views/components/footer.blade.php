@@ -108,5 +108,23 @@
         </div>
     </div>
 </footer>
+<script>
+    //mobile menu controller
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    let isOpen = false;
+
+    menuBtn.addEventListener("click", () => {
+        if (!isOpen) {
+            mobileMenu.classList.remove("max-h-0", "opacity-0");
+            mobileMenu.classList.add("max-h-[500px]", "opacity-100");
+        } else {
+            mobileMenu.classList.add("max-h-0", "opacity-0");
+            mobileMenu.classList.remove("max-h-[500px]", "opacity-100");
+        }
+        isOpen = !isOpen;
+    });
+</script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>

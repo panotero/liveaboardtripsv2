@@ -1,34 +1,10 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-    <x-icon />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LiveAboardTrips - Home</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+<x-head>
+    Home
+</x-head>
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-slide-in {
-            animation: slideIn 0.8s ease-out forwards;
-        }
-
-        .slideshow-item {
-            transition: opacity 1s ease-in-out;
-        }
-    </style>
-</head>
 
 <body class="bg-sky-50 text-gray-800">
     <x-navbar />
@@ -68,8 +44,8 @@
                 <div class="space-y-5">
                     <!-- Location -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-600 mb-2">
-                            Destination
+                        <label class=" text-sm font-semibold text-gray-600 mb-2 flex">
+                            Destination<p class="text-red-600 ml-1">*</p>
                         </label>
                         <input type="text" id="destination" placeholder="e.g. Tubbataha, Maldives, Raja Ampat"
                             class="w-full px-5 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-400 outline-none" />
@@ -77,14 +53,15 @@
 
                     <!-- Date -->
                     <div class="grid grid-cols-2 gap-4">
-                        <div>
+                        <div class="h-auto">
                             <label class="block text-sm font-semibold text-gray-600 mb-2">
                                 Check-in
+                                <p class="text-[12px]">(leave blank to get all available trip dates)</p>
                             </label>
                             <input type="date" id="date"
                                 class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-cyan-400 outline-none" />
                         </div>
-                        <div>
+                        <div class="h-auto flex flex-col justify-end">
                             <label class="block text-sm font-semibold text-gray-600 mb-2">
                                 Duration
                             </label>
@@ -557,22 +534,6 @@
             updateSlide();
         }, 5000);
 
-        //mobile menu controller
-        const menuBtn = document.getElementById("menuBtn");
-        const mobileMenu = document.getElementById("mobileMenu");
-
-        let isOpen = false;
-
-        menuBtn.addEventListener("click", () => {
-            if (!isOpen) {
-                mobileMenu.classList.remove("max-h-0", "opacity-0");
-                mobileMenu.classList.add("max-h-[500px]", "opacity-100");
-            } else {
-                mobileMenu.classList.add("max-h-0", "opacity-0");
-                mobileMenu.classList.remove("max-h-[500px]", "opacity-100");
-            }
-            isOpen = !isOpen;
-        });
 
         const searchbutton = document.getElementById("searchbutton");
         const destination = document.getElementById("destination");
@@ -583,10 +544,7 @@
         searchbutton.addEventListener("click", function() {
 
             const errors = validateSearchForm({
-                destination: destination.value,
-                date: date.value,
-                duration: duration.value,
-                pax: PAX.value
+                destination: destination.value
             });
             if (errors.length > 0) {
                 console.group("Form validation errors");
@@ -604,7 +562,7 @@
             });
 
             // Basic validation
-            if (!destination.value || !date.value) {
+            if (!destination.value) {
                 alert("Please enter destination and date.");
                 return;
             }
@@ -628,29 +586,8 @@
                 });
             }
 
-            // Date
-            if (!date) {
-                errors.push({
-                    field: "date",
-                    message: "Date is null or invalid"
-                });
-            }
 
-            // Duration
-            if (!duration) {
-                errors.push({
-                    field: "duration",
-                    message: "Duration is null"
-                });
-            }
 
-            // PAX
-            if (!pax) {
-                errors.push({
-                    field: "PAX",
-                    message: "PAX is null"
-                });
-            }
 
             return errors;
         }

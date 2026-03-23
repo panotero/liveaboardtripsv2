@@ -26,7 +26,7 @@ Route::get('/login', function () {
     return auth()->check() ? redirect()->route('dashboard') : redirect()->route('login');
 });
 Route::get('/', function () {
-    return view('home');
+    return view('client.home');
 });
 
 
@@ -78,8 +78,12 @@ Route::middleware(['auth', 'check.status', 'prevent-back-history'])->group(funct
     });
 });
 
-Route::get('/search', [SearchController::class, 'search']);
+Route::get('/search', [PageController::class, 'search']);
 Route::get('/destinations', [PageController::class, 'destinations']);
 Route::get('/trips', [PageController::class, 'trips']);
 Route::get('/contactUs', [PageController::class, 'contactUs']);
+Route::get('/info', [PageController::class, 'info']);
+Route::get('booking', [PageController::class, 'booking']);
+Route::get('guest', [PageController::class, 'guest']);
+Route::get('payment', [PageController::class, 'payment']);
 require __DIR__ . '/auth.php';

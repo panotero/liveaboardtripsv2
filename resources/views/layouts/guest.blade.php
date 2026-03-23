@@ -2,12 +2,14 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <x-icon />
+
     <link rel="icon" type="image/x-icon" href="{{ asset('/assets/images/TESDA_Logo.png') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>LiveeAboardTrips Login</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -50,8 +52,8 @@
 
                 <div class="w-full sm:max-w-md">
 
-                    <div class="mb-6 text-center">
-                        <h2 class="text-2xl font-semibold text-gray-800">Welcome Back</h2>
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-semibold text-gray-800">Login</h2>
                         <p class="text-sm text-gray-500">Please sign in to continue</p>
                     </div>
 

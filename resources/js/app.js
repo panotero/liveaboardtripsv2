@@ -23,4 +23,7 @@ import "./navmenu";
 import "./datatableHandler";
 // import "./notificationController";
 import "./mailer";
+import { sileo } from "sileo";
+
+window.toast = sileo;
 // import "./toast";

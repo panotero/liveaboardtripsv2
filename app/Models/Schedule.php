@@ -23,7 +23,25 @@ class Schedule extends Model
     ];
 
     protected $casts = [
-        'schedule_from' => 'date',
-        'schedule_to' => 'date',
+        'schedule_from' => 'date:Y-m-d',
+        'schedule_to'   => 'date:Y-m-d',
     ];
+
+    public function VesselInfo()
+    {
+        return $this->belongsTo(Vessel::class, 'vessel_id', 'id');
+    }
+    public function DestinationInfo()
+    {
+
+        return $this->belongsTo(Destination::class, 'destination_id', 'id');
+    }
+    public function Schedules()
+    {
+        return $this->hasMany(Schedule::class, 'destination_id', 'destination_id');
+    }
+    public function Cabins()
+    {
+        return $this->hasMany(Cabin::class, 'vessel_id', 'vessel_id');
+    }
 }

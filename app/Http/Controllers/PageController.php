@@ -74,6 +74,19 @@ class PageController extends Controller
         return view('pages.operators');
     }
 
+    public function search(Request $request)
+    {
+        $getrequest =  $request->all();
+        return view('client.search', ['getrequest' => $getrequest]);
+    }
+
+    public function info(Request $request)
+    {
+
+        $getrequest =  $request->all();
+        return view('client.info', ['getrequest' => $getrequest]);
+    }
+
 
     public function profile()
     {
@@ -88,7 +101,7 @@ class PageController extends Controller
     public function destinations()
     {
 
-        return view('destinations');
+        return view('client.destinations');
     }
     public function trips()
     {
@@ -98,6 +111,20 @@ class PageController extends Controller
     public function contactUs()
     {
 
-        return view('contactUs');
+        return view('client.contactUs');
+    }
+    public function booking()
+    {
+        return view('client.booking');
+    }
+
+    public function guest()
+    {
+        return view('client.guest');
+    }
+
+    public function payment()
+    {
+        return view('client.payment');
     }
 }

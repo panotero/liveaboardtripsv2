@@ -26,6 +26,7 @@ use App\Http\Controllers\VesselController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -147,3 +148,6 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}', [BookingController::class, 'destroy']);
     });
 });
+
+//no need auth available on all users
+Route::post('/search', [SearchController::class, 'search']);
